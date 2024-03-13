@@ -1,0 +1,6 @@
+@TestAPIaWEBaASP_HostAddress = http://localhost:52100
+
+GET {{TestAPIaWEBaASP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

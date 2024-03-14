@@ -2,52 +2,37 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using MassTransit;
+using Imessage;
 // Consumer который получает сообщения
-internal class Program
+
+var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
 {
-    private static void Main(string[] args)
+    cfg.ReceiveEndpoint("message-created-event", e =>
     {
-        var factory = new ConnectionFactory
-        {
-            HostName = "localhost"
-        };
+        e.Consumer<MessageConsumer>();
+    });
+});
 
-        using var connection = factory.CreateConnection();
-        using var channel = connection.CreateModel();
+await busControl.StartAsync(new CancellationToken());
 
-        channel.ExchangeDeclare("Messages", type: ExchangeType.Fanout);
+try
+{
+    Console.WriteLine("Press enter to exit");
 
-        var queuename = channel.QueueDeclare().QueueName;
-
-        channel.QueueBind(queue: queuename,
-                                exchange: "Messages",
-                                routingKey: string.Empty);
-
-        var consumer = new EventingBasicConsumer(channel);
-        consumer.Received += (sender, e) =>
-        {
-            // получаем и выводим сообщение
-            var body = e.Body.ToArray();
-            string jsonMessage = Encoding.UTF8.GetString(body);
-            MyMessage message = JsonConvert.DeserializeObject<MyMessage>(jsonMessage);
-
-            Console.WriteLine($"Получено сообщение!:");
-            Console.WriteLine($"Заголовок: {message.Title}");
-            Console.WriteLine($"Текст: {message.Message}");
-            Console.WriteLine($"-------------------------");
-        };
-
-        channel.BasicConsume(queue: queuename,
-                             autoAck: true,
-                             consumer: consumer);
-
-        Console.ReadKey();
-    }
+    await Task.Run(() => Console.ReadLine());
+}
+finally
+{
+    await busControl.StopAsync();
 }
 
-public class MyMessage
+class MessageConsumer : IConsumer<IMessages>
 {
-    public string Title { get; set; }
-    public string Message { get; set; }
+    public async Task Consume(ConsumeContext<IMessages> context)
+    {
+        var jsonMessage = JsonConvert.SerializeObject(context.Message);
+        Console.WriteLine($"Have new message!: {jsonMessage}");
+    }
 }
 

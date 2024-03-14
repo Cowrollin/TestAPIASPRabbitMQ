@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAPIaWEBaASP", "TestAPIaWEBaASP\TestAPIaWEBaASP.csproj", "{8EEAC768-A95A-45DF-84CB-DD68F48D3757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerTakeMessage", "ConsumerTakeMessage\ConsumerTakeMessage.csproj", "{45A255A0-2B2B-45BC-ADC1-9D0236A54B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerTakeMessage", "ConsumerTakeMessage\ConsumerTakeMessage.csproj", "{45A255A0-2B2B-45BC-ADC1-9D0236A54B90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imessage", "Imessage\Imessage.csproj", "{07996FE8-BA2A-45D3-8110-28B822986AC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{45A255A0-2B2B-45BC-ADC1-9D0236A54B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A255A0-2B2B-45BC-ADC1-9D0236A54B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A255A0-2B2B-45BC-ADC1-9D0236A54B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07996FE8-BA2A-45D3-8110-28B822986AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07996FE8-BA2A-45D3-8110-28B822986AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07996FE8-BA2A-45D3-8110-28B822986AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07996FE8-BA2A-45D3-8110-28B822986AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

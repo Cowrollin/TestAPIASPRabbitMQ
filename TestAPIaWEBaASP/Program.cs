@@ -1,16 +1,15 @@
-using TestAPIaWEBaASP.Data;
-using TestAPIaWEBaASP.RabbitMQ;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<MessageDBContext>(options =>
-    options.UseInMemoryDatabase("ASPNETCoreRabbitMQ"));
+//Добавляем MassTransit
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq();
+});
 
-// Добавляем сервисы
-builder.Services.AddScoped<ImessageDB, MessageDBContext>();
-builder.Services.AddScoped<Imessage, Producer>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
